@@ -22,7 +22,6 @@ def train(args, text_encoder, image_encoder, trial=None):
     text_encoder.eval()
     for epoch in range(args.epochs):
         print('Epoch {}/{}'.format(epoch + 1, args.epochs))
-        print('-' * 10, f'experiment_num...{args.experiment_num}')
         image_encoder.train()
         total_loss = 0
         score_list = torch.tensor([]).to(device)
@@ -70,7 +69,7 @@ def train(args, text_encoder, image_encoder, trial=None):
         epoch_val_plcc = calculate_plcc(valid_score_list, valid_output_list).item()
         epoch_val_srcc = calculate_srcc(valid_score_list, valid_output_list).item()
         print(f'Epoch {epoch+1}/{args.epochs}, Loss: {average_loss}, Train PLCC: {epoch_plcc}, Train SRCC: {epoch_srcc}, Val PLCC: {epoch_val_plcc} Val SRCC: {epoch_val_srcc}')
-    torch.save(image_encoder.state_dict(), f'checkpoint/baid_model_{str(args.experiment_num)}.pth')
+    torch.save(image_encoder.state_dict(), 'checkpoint/baid_model.pth')
 
 
 def test(args, trained_model):
